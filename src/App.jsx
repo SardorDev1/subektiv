@@ -1,26 +1,44 @@
-import React from 'react'
-import { Fade } from 'react-reveal'
-import './assets/App.css'
-import "react-lazy-load-image-component/src/effects/blur.css"
-import Logo from './assets/images/logos.png'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
-import Nav from './companents/Navs'
+
+import React, { useEffect, useState, useRef } from 'react'
+import { Route, Routes } from 'react-router-dom'
+import Header from './companents/Header'
+import Loader from './companents/Loader'
+
 function App() {
 
-  return (
-    <>
-      <header className='hero'>
-            <Nav />
-            <div className="container-fluid mx-auto">
-              <div className="row">
-                <div className="bottom text-center mx-auto mt-5">
-                  <LazyLoadImage className='mx-auto'  src={Logo} effect="blur" alt='error img'   />
-                </div>
-              </div>
-            </div>
-      </header>
-    </>
-  )
+  const [loader, setLoader] = useState(true)
+
+
+
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoader(false)
+    }, 500)
+  }, [])
+
+
+
+  if (loader === true) {
+    return <Loader />
+  } else {
+    return (
+
+      <>
+
+
+
+        <Routes>
+          <Route path='/' element={<Header />} />
+          <Route path='/statistics' element={<Header />} />
+          <Route path='/services' element={<Header />} />
+          <Route path='/contents' element={<Header />} />
+        </Routes>
+
+      </>
+    )
+  }
+
 }
 
 export default App
